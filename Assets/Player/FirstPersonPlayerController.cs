@@ -9,7 +9,7 @@ public class FirstPersonPlayerController : MonoBehaviour
 {
     //Components
     Rigidbody rb;
-    [SerializeField] GameObject cam, interactSphere;
+    [SerializeField] GameObject cam, interactSphere, lineOfSightSphere;
     [SerializeField] float interactDistance = 1;
 
     // Start is called before the first frame update
@@ -70,9 +70,15 @@ public class FirstPersonPlayerController : MonoBehaviour
         }
 
         //Raycast for interaction
-        RaycastHit hit;
-        Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, interactDistance);
-        interactSphere.transform.position = hit.point;
+        RaycastHit interactHit;
+        Physics.Raycast(cam.transform.position, cam.transform.forward, out interactHit, interactDistance);
+        interactSphere.transform.position = interactHit.point;
+
+        //Raycast for lineOfSight
+        RaycastHit lineOfSightHit;
+        Physics.Raycast(cam.transform.position, cam.transform.forward, out lineOfSightHit);
+        lineOfSightSphere.transform.position = lineOfSightHit.point;
+
     }
 
     private void FixedUpdate()

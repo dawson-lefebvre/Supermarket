@@ -109,6 +109,7 @@ public class DoorWithSparks : MonoBehaviour
         leftDoor.enabled = false;
         Interactable = false;
         InteractIndicator.SetActive(false);
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameProgressionManager>().FinishDoorSequence();
         this.enabled = false;
     }
 

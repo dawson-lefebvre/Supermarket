@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameProgressionManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]TextMeshProUGUI objectiveText;
+
+    private void Start()
     {
-        
+        objectiveText.text = "Objective:\nGo inside.";
     }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] GameObject WindowInteract;
+
+    public void FinishDoorSequence()
     {
-        
+        objectiveText.text = "Objective:\nFind another way in.";
+        WindowInteract.SetActive(true);
+    }
+
+    public void EnterWindow()
+    {
+        WindowInteract.SetActive(false);
+        objectiveText.text = "Objective:\nCheck the cameras.";
     }
 }

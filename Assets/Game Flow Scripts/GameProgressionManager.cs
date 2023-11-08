@@ -10,6 +10,7 @@ public class GameProgressionManager : MonoBehaviour
     private void Start()
     {
         objectiveText.text = "Objective:\nGo inside.";
+        Application.targetFrameRate = 60;
     }
 
     [SerializeField] GameObject WindowInteract;
@@ -22,7 +23,13 @@ public class GameProgressionManager : MonoBehaviour
 
     public void EnterWindow()
     {
-        WindowInteract.SetActive(false);
         objectiveText.text = "Objective:\nCheck the cameras.";
+    }
+
+    [SerializeField] GameObject finalScareObject;
+    public void ActivateFinalScare()
+    {
+        finalScareObject.SetActive(true);
+        objectiveText.text = "Objective:\nDon't look back.";
     }
 }

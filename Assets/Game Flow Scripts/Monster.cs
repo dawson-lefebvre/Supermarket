@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Monster : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class Monster : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if(collision.gameObject.tag == "Player")
         {
-            EditorApplication.ExitPlaymode();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene(0);
         }
     }
 }

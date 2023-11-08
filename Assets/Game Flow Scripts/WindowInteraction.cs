@@ -45,18 +45,21 @@ public class WindowInteraction : MonoBehaviour
         InteractAction.Disable();
     }
 
+    //Audio
+    AudioSource aSource;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        aSource = GetComponent<AudioSource>();
     }
 
     [SerializeField] Transform entrySpot; //Transform where player will be dropped inside the room
-
+    [SerializeField] GameObject player;
     void Interact()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); //Get player
         player.transform.position = entrySpot.transform.position; //Move player
+        aSource.Play();
 
         //Disable the interact indicator and this script
         InteractIndicator.SetActive(false);

@@ -23,6 +23,9 @@ public class DoorWithSparks : MonoBehaviour
     //Input
     [SerializeField] InputAction InteractAction;
 
+    //Audio
+    AudioSource aSource;
+
     private void OnEnable()
     {
         InteractAction.Enable();
@@ -38,6 +41,7 @@ public class DoorWithSparks : MonoBehaviour
     {
         rightDoor.enabled = false;
         leftDoor.enabled = false;
+        aSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -88,6 +92,7 @@ public class DoorWithSparks : MonoBehaviour
         //Start spark spawn Coroutine
         StartCoroutine(SpawnSparks());
         StartCoroutine(FinishDoorSequence());
+        aSource.Play();
     }
 
     //Number of sparks to spawn

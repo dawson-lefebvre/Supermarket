@@ -43,6 +43,8 @@ public class FirstPersonPlayerController : MonoBehaviour
         InteractAction.Disable();
     }
 
+    public bool moving = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -50,8 +52,37 @@ public class FirstPersonPlayerController : MonoBehaviour
         MoveValue = MoveAction.ReadValue<Vector2>();
         LookValue = LookAction.ReadValue<Vector2>();
 
+        if(MoveValue != Vector2.zero)
+        {
+            if(!moving)
+            {
+                moving = true;
+            }
+        }
+        else
+        {
+            if(moving)
+            {
+                moving = false;
+            }
+        }
+
+        //Raycast for interaction
+        RaycastHit interactHit;
+        Physics.Raycast(cam.transform.position, cam.transform.forward, out interactHit, interactDistance);
+        interactSphere.transform.position = interactHit.point;
+
+        //Raycast for lineOfSight
+        RaycastHit lineOfSightHit;
+        Physics.Raycast(cam.transform.position, cam.transform.forward, out lineOfSightHit);
+        lineOfSightSphere.transform.position = lineOfSightHit.point;
+
+    }
+
+    private void LateUpdate()
+    {
         //Rotate player
-        transform.Rotate(LookValue.x * Vector3.up * lookSpeed * Time.fixedDeltaTime);
+        transform.Rotate(LookValue.x * Vector3.up * lookSpeed * Time.deltaTime);
 
         //Move Camera up and down
         cam.transform.Rotate(LookValue.y * Vector3.left * lookSpeed * Time.deltaTime);
@@ -68,17 +99,6 @@ public class FirstPersonPlayerController : MonoBehaviour
         {
             cam.transform.localRotation = Quaternion.Euler(315.0f, 0, 0);
         }
-
-        //Raycast for interaction
-        RaycastHit interactHit;
-        Physics.Raycast(cam.transform.position, cam.transform.forward, out interactHit, interactDistance);
-        interactSphere.transform.position = interactHit.point;
-
-        //Raycast for lineOfSight
-        RaycastHit lineOfSightHit;
-        Physics.Raycast(cam.transform.position, cam.transform.forward, out lineOfSightHit);
-        lineOfSightSphere.transform.position = lineOfSightHit.point;
-
     }
 
     private void FixedUpdate()

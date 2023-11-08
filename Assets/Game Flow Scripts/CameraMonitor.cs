@@ -48,9 +48,12 @@ public class CameraMonitor : MonoBehaviour
 
     [SerializeField] MeshRenderer monitorMr;
 
+    AudioSource aSource;
+
     private void Start()
     {
         monitorMr.material = cam1Mat;
+        aSource = GetComponent<AudioSource>();
     }
 
     int currentCamera = 1;
@@ -99,6 +102,7 @@ public class CameraMonitor : MonoBehaviour
 
     void Interact()
     {
+        aSource.Play();
         //Switch materials
         if(currentCamera == 1)
         {
@@ -106,7 +110,8 @@ public class CameraMonitor : MonoBehaviour
             monitorMr.material = cam2Mat;
             if(firstSwitch)
             {
-                //Trigger scare sequence
+                firstSwitch = false;
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameProgressionManager>().ActivateFinalScare();
             }
         }
         else
